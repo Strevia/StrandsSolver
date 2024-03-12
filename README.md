@@ -16,25 +16,25 @@ The 8 words are "league", "fathom", "foot", "yard", "inch", "furlong", "meter", 
 ## Preliminary Thoughts
 
 
-After understanding the rules of the game, I have some preliminary thoughts:
+After understanding the rules of the game, here are some preliminary thoughts:
 
 - The game is definetly NP; it's trivial to check whether a given solution solves a board.
 - No information is required from the game after the board is input. So, this game will be much easier than Wordle to solve (which requires output from the game after each guess).
-- It's very possible for there to be multiple solutions to a given puzzle, since the wordlist could, hypothetically, contain any and every combination of letters. For this reason, I will be solving the problem of finding not just one solution, but all solutions to a given board.
+- It's very possible for there to be multiple solutions to a given puzzle, since the wordlist could, hypothetically, contain any and every combination of letters. For this reason, the algorithm should solve the problem of finding not just one solution, but all solutions to a given board.
 
-I also want to specify what I mean by "generalized case". In the NYT version of the game, there are very specific words which are allowed. In addition, there is a caveat that words must be at least three letters long. However, when creating the solution, the wordlist should be able to be any specified list of words. I'd ideally like for it not to matter what exact wordlist is used for the solution. For my solution, I will use the dictionary at /usr/share/dict/words, for simplicity.
+To specify what is meant by "generalized case". In the NYT version of the game, there are very specific words which are allowed. In addition, there is a caveat that words must be at least three letters long. However, when creating the solution, the wordlist should be able to be any specified list of words. Ideally, the algorithm should work no matter what exact wordlist is used for the solution. For this solution, the algorithm will use the dictionary at /usr/share/dict/words, for simplicity.
 
 ## The Algorithm
 
-To solve Strands I believe the best and simplest way is to divide the problem into two steps:
+Strands will be solved with two steps:
 
-1. Find all possible words which can be made from the letters on the board (this will be more than just the solution words).
-1. With the possible words, find which combinations of them contain every letter on the board exactly once and contain a spangram.
+1. Finding all possible words which can be made from the letters on the board (this will be more than just the solution words).
+2. With the possible words, finding which combinations of them contain every letter on the board exactly once and contain a spangram.
 
-Steps 1 and 2 can be solved indepedently, as long as the output from step 1 is valid for step 2. 
+Steps 1 and 2 can be solved independently, as long as the output from step 1 is valid for step 2. 
 
-For Step 1, I am going to start with a simple brute force approach, checking every path of adjacent letters until the path is no longer a valid word. For example, starting from the Y in yard, "yo" is a valid beginning to multiple words, however "yoo" is not.
+For Step 1, a simple brute force approach will be used, checking every path of adjacent letters until the path is no longer a valid word. For example, starting from the Y in yard, "yo" is a valid beginning to multiple words (like "yogurt"), however "yoo" is not.
 
-For Step 2, I plan to start by finding all spangrams, and then checking increasing sizes of combinations until one of the right size is found.
+For Step 2, the plan is to start by finding all spangrams, and then checking increasing sizes of combinations until one of the right size is found.
 
-All in all, I think this will be a relatively simple proof of concept. If it is, I will try to optimize the algorithm for speed.
+All in all, it is expected to be a relatively simple proof of concept. If it is, the next step will be to try to optimize the algorithm for speed.
